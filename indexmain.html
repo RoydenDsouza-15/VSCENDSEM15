@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TeamVault</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eceff4;--card:#fff;--tx:#101a2c;--mu:#5a6679;--bd:#dde1e9;--ac:#1f3a68;--ax:#fff;--rd:#c2410c;--ok:#15803d;--wn:#a16207;--br:#b9822a;--sh:0 1px 2px rgba(16,26,44,.05),0 10px 24px rgba(16,26,44,.07);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a0f1a;--card:#121a2a;--tx:#e8ecf4;--mu:#92a0b8;--bd:#22304a;--ac:#e2b25c;--ax:#1a1204;--rd:#f4906a;--ok:#5fd48a;--wn:#e5b04a;--br:#e2b25c;--sh:0 10px 26px rgba(0,0,0,.4)}}
+:root[data-theme="dark"]{--bg:#0a0f1a;--card:#121a2a;--tx:#e8ecf4;--mu:#92a0b8;--bd:#22304a;--ac:#e2b25c;--ax:#1a1204;--rd:#f4906a;--ok:#5fd48a;--wn:#e5b04a;--br:#e2b25c;--sh:0 10px 26px rgba(0,0,0,.4)}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:radial-gradient(800px 380px at 90% -8%,color-mix(in srgb,var(--br) 14%,transparent),transparent),var(--bg);background-attachment:fixed;color:var(--tx);font:15px/1.55 'IBM Plex Sans',system-ui,sans-serif}
+h1,h2,h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;margin:0}
+.wrap{max-width:960px;margin:0 auto;padding:16px}
+h1{font-size:28px;letter-spacing:-.025em}h2{font-size:19px;margin-bottom:10px}h3{font-size:17px}
+button,select,input{font:inherit;color:var(--tx)}
+input,select{background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;width:100%}
+input:focus,select:focus{border-color:var(--br);box-shadow:0 0 0 3px color-mix(in srgb,var(--br) 22%,transparent);outline:0}
+button{background:var(--ac);color:var(--ax);border:0;border-radius:10px;padding:9px 16px;cursor:pointer;font-weight:500}
+button:hover{filter:brightness(1.1)}button:active{transform:scale(.97)}
+button.g{background:transparent;color:var(--tx);border:1px solid var(--bd)}button.d{background:var(--rd);color:#fff}
+button.s{padding:5px 11px;font-size:13px}button:disabled{opacity:.5;cursor:not-allowed}
+:focus-visible{outline:2px solid var(--br);outline-offset:2px}
+.hero{background:linear-gradient(135deg,#0c1626,#17305a 78%);color:#fff;border-radius:20px;padding:20px;margin-bottom:14px;box-shadow:var(--sh);border:1px solid rgba(226,178,92,.25)}
+.brand{display:flex;gap:14px;align-items:center}.sub{color:#b8c6de;font-size:13px}
+.lg{width:46px;height:46px;border-radius:14px;background:rgba(226,178,92,.16);border:1px solid rgba(226,178,92,.5);display:grid;place-items:center}
+.stats{display:flex;gap:10px;margin-top:18px}
+.stats div{flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:10px 14px;font-size:12px;color:#b8c6de}
+.stats b{display:block;font:700 28px 'Bricolage Grotesque',sans-serif;color:#f1d08e}
+nav{display:flex;gap:6px;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:4px;margin-bottom:14px;overflow-x:auto;box-shadow:var(--sh)}
+nav button{flex:1;background:none;color:var(--mu);border-radius:10px;padding:9px 14px;white-space:nowrap;position:relative}
+nav button.on{background:var(--ac);color:var(--ax)}
+.bdg{position:absolute;top:2px;right:6px;background:var(--rd);color:#fff;font-size:10px;border-radius:99px;padding:1px 5px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:18px;margin-bottom:12px;box-shadow:var(--sh)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.cn{display:flex;gap:14px;align-items:center}
+.ini{width:44px;height:44px;flex:none;border-radius:14px;display:grid;place-items:center;font:700 19px 'Bricolage Grotesque',sans-serif;color:var(--br);background:color-mix(in srgb,var(--br) 14%,var(--card));border:1px solid color-mix(in srgb,var(--br) 35%,transparent)}
+.mu{color:var(--mu);font-size:13px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
+.tag{font-size:12px;padding:2px 9px;border-radius:99px;border:1px solid var(--bd)}
+.tag.r{color:var(--rd);border-color:var(--rd)}.tag.w{color:var(--wn);border-color:var(--wn)}.tag.o{color:var(--ok);border-color:var(--ok)}
+.pw{font-family:ui-monospace,monospace;background:var(--bg);padding:2px 8px;border-radius:6px}
+.bar{height:5px;border-radius:9px;background:var(--bd);margin:12px 0 10px;overflow:hidden}.bar i{display:block;height:100%;border-radius:9px}
+.s0,.s1{background:var(--rd)}.s2{background:var(--wn)}.s3,.s4{background:var(--ok)}
+.sw{display:flex;flex-wrap:wrap;gap:4px}.chip{font-size:12px;padding:2px 10px;border-radius:99px;background:var(--bg);border:1px solid var(--bd)}
+.gauge{width:96px;height:96px;border-radius:50%;background:conic-gradient(var(--c) calc(var(--p)*1%),var(--bd) 0);display:grid;place-items:center}
+.gauge b{width:76px;height:76px;border-radius:50%;background:var(--card);display:grid;place-items:center;font:700 28px 'Bricolage Grotesque',sans-serif;color:var(--c)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.tile{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:18px 10px;text-align:center;cursor:pointer;box-shadow:var(--sh)}
+.tile:hover{border-color:var(--br)}
+.tile .ini{margin:0 auto 10px;width:56px;height:56px;font-size:22px}
+.lock{max-width:400px;margin:8vh auto;text-align:center;padding:30px 26px;border-top:3px solid var(--br)}
+.wide{max-width:640px;margin:6vh auto}
+.log div{padding:9px 0;border-bottom:1px solid var(--bd);font-size:14px}.log div:last-child{border:0}
+.warn{border-left:5px solid var(--rd)}
+.acc{margin-top:10px;padding:12px;border:1px dashed var(--br);border-radius:12px;display:flex;gap:18px;flex-wrap:wrap;font-size:14px}
+summary{cursor:pointer}
+.pf{position:relative}.pf input{padding-right:40px}.eye{position:absolute;right:4px;top:50%;transform:translateY(-50%);background:none;border:0;padding:6px;color:var(--mu);cursor:pointer;width:auto}.eye:hover{color:var(--tx)}
+.intro{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0A0F1A;cursor:pointer;transition:opacity .5s,transform .5s}
+.intro.out{opacity:0;transform:scale(.95);pointer-events:none}
+.intro .aura{position:absolute;width:480px;height:480px;border-radius:50%;background:rgba(226,178,92,.1);filter:blur(100px);animation:pulse 2.5s ease-in-out infinite}
+.intro .row2{display:flex;align-items:center;gap:14px;position:relative;z-index:1}
+.intro .wordmark{font:800 44px 'Bricolage Grotesque',sans-serif;background:linear-gradient(90deg,#E8ECF4,#E2B25C,#F59E0B);-webkit-background-clip:text;background-clip:text;color:transparent}
+.intro .lockwrap{position:relative;width:52px;height:60px;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 4px 16px rgba(226,178,92,.35))}
+.intro .glow{position:absolute;inset:-6px;border-radius:50%;background:rgba(226,178,92,.4);filter:blur(6px);opacity:0}
+.intro.flash .glow{opacity:1;animation:ping .35s ease-out}
+.intro .shackle{transition:transform .4s cubic-bezier(.34,1.56,.64,1),stroke .3s;transform:translateY(-10px) rotate(-14deg);transform-origin:36px 20px;stroke:#92A0B8}
+.intro.locked .shackle{transform:translateY(0) rotate(0);stroke:#E2B25C}
+.intro .keyhole{fill:#E2B25C;transition:fill .3s}.intro.locked .keyhole{fill:#10B981}
+.intro .status{margin-top:16px;display:flex;align-items:center;gap:8px;font:500 13px 'IBM Plex Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#92A0B8}
+.intro .dot{width:8px;height:8px;border-radius:50%;background:#E5B04A;transition:background .3s}
+.intro.locked .dot{background:#10B981;animation:ping 1s infinite}
+.intro .skip{margin-top:28px;background:none;border:0;padding:0;font-size:12px;color:rgba(146,160,184,.6)}
+.intro .skip:hover{color:#E2B25C}
+@keyframes ping{0%{transform:scale(1);opacity:1}100%{transform:scale(1.8);opacity:0}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+@media(prefers-reduced-motion:reduce){.intro,.intro .shackle{transition:none}}
+@media(max-width:520px){.stats b{font-size:22px}h1{font-size:24px}}
+</style></head><body><div class="wrap" id="app"></div>
+<script>
+const enc=new TextEncoder(),dec=new TextDecoder(),$=id=>document.getElementById(id);
+const b2s=b=>btoa(String.fromCharCode(...new Uint8Array(b))),s2b=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const LOCK='<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="3"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>';
+function pf(id,ph,val=''){return`<div class="pf"><input id="${id}" type="password" placeholder="${ph}" autocomplete="off" value="${esc(val)}"><button type="button" class="eye" data-eye="${id}">\u{1F441}</button></div>`}
+function bindEyes(){document.querySelectorAll('[data-eye]').forEach(b=>b.onclick=()=>{const i=$(b.dataset.eye);i.type=i.type==='password'?'text':'password'})}
+const mem={},ls={get:k=>{try{return localStorage.getItem(k)}catch(e){return mem[k]??null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){mem[k]=v}},del:k=>{try{localStorage.removeItem(k)}catch(e){delete mem[k]}}};
+const day=864e5,now=()=>Date.now();
+const COMMON=['password','123456','qwerty','shop123','books2024','admin','welcome','letmein'];
+const sc=p=>(p.length>=8)+(p.length>=12)+(/[A-Z]/.test(p)&&/\d/.test(p))+(/[^A-Za-z0-9]/.test(p));
+function weak(p){return COMMON.some(x=>p.toLowerCase().includes(x))||p.length<10||!/[A-Z]/.test(p)||!/\d/.test(p)||!/[^A-Za-z0-9]/.test(p)}
+function gen(n=16){const a='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%&*';const r=crypto.getRandomValues(new Uint32Array(n));let p=[...r].map(x=>a[x%a.length]).join('');return weak(p)?gen(n):p}
+async function deriveUserKey(pw,saltB64){const k=await crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt:s2b(saltB64),iterations:250000,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,['encrypt','decrypt'])}
+async function wrapDEK(dek,userKey){const raw=await crypto.subtle.exportKey('raw',dek);const iv=crypto.getRandomValues(new Uint8Array(12));const ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},userKey,raw);return b2s(iv)+'.'+b2s(ct)}
+async function unwrapDEK(wrap,userKey){const[i,c]=wrap.split('.');const raw=await crypto.subtle.decrypt({name:'AES-GCM',iv:s2b(i)},userKey,s2b(c));return crypto.subtle.importKey('raw',raw,'AES-GCM',true,['encrypt','decrypt'])}
+async function saveVault(){const iv=crypto.getRandomValues(new Uint8Array(12));const ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},DEK,enc.encode(JSON.stringify(S)));ls.set('tv_vault',b2s(iv)+'.'+b2s(ct))}
+async function loadVault(){const[i,c]=ls.get('tv_vault').split('.');return JSON.parse(dec.decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:s2b(i)},DEK,s2b(c))))}
+const reg=()=>JSON.parse(ls.get('tv_users')||'[]');
+const saveReg=r=>ls.set('tv_users',JSON.stringify(r));
+function seedData(){const t=now();return{creds:[{id:'c1',name:'Instagram – shop page',login:'@shopname',pass:'shop123',shared:[],upd:t-200*day},
+{id:'c2',name:'Shopify admin',login:'owner@shop.in',pass:'K9#mPq2!vXz84Lw',shared:[],upd:t-20*day},
+{id:'c3',name:'GST portal',login:'27ABCDE1234F1Z5',pass:'shop123',shared:[],upd:t-130*day},
+{id:'c4',name:'Shop Wi-Fi',login:'router',pass:'Tr7$nBd9@qLe5Yc',shared:[],upd:t-10*day},
+{id:'c5',name:'Canva Pro',login:'design@shopname.in',pass:'Cv!8rTq#2mLp90x',shared:[],upd:t-15*day},
+{id:'c6',name:'Zoho Books',login:'accounts@shopname.in',pass:'books2024',shared:[],upd:t-60*day},
+{id:'c7',name:'Razorpay dashboard',login:'owner@shopname.in',pass:'books2024',shared:[],upd:t-45*day},
+{id:'c8',name:'Google Workspace',login:'admin@shopname.in',pass:'Gw$4nHd8!qXc27z',shared:[],upd:t-5*day}],
+log:[{t,who:'System',a:'Vault created with demo data'}],requests:[],rot:90}}
+let DEK=null,S=null,me=null,tab='vault',shown={},offb=null,msg='',selUser=null,sel=null;
+function lg(who,a){S.log.unshift({t:now(),who,a});S.log=S.log.slice(0,200)}
+function issues(c){const r=[];if(weak(c.pass))r.push('weak');if(S.creds.some(o=>o.id!==c.id&&o.pass===c.pass))r.push('reused');if(now()-c.upd>(S.rot||90)*day)r.push('old');if(c.rotate)r.push('rotate now');return r}
+function score(){let s=100;S.creds.forEach(c=>{const i=issues(c);s-=(i.includes('weak')?12:0)+(i.includes('reused')?12:0)+(i.includes('old')?6:0)+(c.rotate?15:0)});return Math.max(0,s)}
+function explain(c,i){const t=[];if(i.includes('reused'))t.push('the same password is used for '+(S.creds.filter(o=>o.pass===c.pass).length)+' logins');if(i.includes('weak'))t.push('it is short or missing capitals, digits or symbols');if(i.includes('old'))t.push('it has not changed in '+Math.floor((now()-c.upd)/day)+' days');if(i.includes('rotate now'))t.push('someone who knew it was removed');return t.join('; ')+'.'}
+function summary(vis){const bad=vis.filter(c=>issues(c).length),w=c=>(c.rotate?3:0)+(issues(c).includes('reused')?2:0)+issues(c).length;if(!bad.length)return'All logins look healthy. Keep rotating passwords on schedule.';return bad.length+' of '+vis.length+' logins need attention. Fix in this order: '+[...bad].sort((a,b)=>w(b)-w(a)).map(c=>esc(c.name)).join(', ')+'. Start with logins flagged rotate now, then reused passwords.'}
+function dlf(name,text){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:'text/plain'}));a.download=name;a.click()}
+const isA=()=>me.role==='admin';
+const vis=()=>S.creds.filter(c=>isA()||c.shared.includes(me.id));
+const pendingCount=()=>S.requests.filter(r=>r.status==='pending').length;
+
+function showIntro(next){
+  try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){next();return}}catch(e){}
+  const d=document.createElement('div');d.className='intro';
+  d.innerHTML='<div class="aura"></div><div class="row2"><span class="wordmark">TeamVault</span><div class="lockwrap"><div class="glow"></div><svg width="48" height="56" viewBox="0 0 48 56" fill="none"><path class="shackle" d="M12 24V14C12 7.37 17.37 2 24 2C30.63 2 36 7.37 36 14V24" stroke-width="5" stroke-linecap="round"/><rect x="4" y="20" width="40" height="32" rx="8" fill="url(#g)" stroke="#E2B25C" stroke-width="1.5"/><path d="M8 24c0-1.1.9-2 2-2h28c1.1 0 2 .9 2 2v1s-4 1-16 1-16-1-16-1v-1z" fill="#fff" fill-opacity=".12"/><circle class="keyhole" cx="24" cy="33" r="3.5"/><path class="keyhole" d="M22.5 34.5L21.5 42H26.5L25.5 34.5"/><defs><linearGradient id="g" x1="24" y1="20" x2="24" y2="52" gradientUnits="userSpaceOnUse"><stop stop-color="#1F3A68"/><stop offset=".6" stop-color="#121A2A"/><stop offset="1" stop-color="#090D16"/></linearGradient></defs></svg></div></div><div class="status"><span class="dot"></span><span class="t">Initializing TeamVault…</span></div><button type="button" class="skip">Click to continue</button>';
+  document.body.appendChild(d);
+  let done=false;const finish=()=>{if(done)return;done=true;d.classList.add('out');setTimeout(()=>{d.remove();next()},480)};
+  d.onclick=finish;
+  const click=()=>{try{const ctx=new(window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator(),g=ctx.createGain();o.type='triangle';o.frequency.setValueAtTime(320,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(120,ctx.currentTime+.08);g.gain.setValueAtTime(.12,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.08);o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+.08)}catch(e){}};
+  setTimeout(()=>{d.classList.add('locked','flash');d.querySelector('.t').textContent='Securing enclave…';click();setTimeout(()=>d.classList.remove('flash'),350);setTimeout(finish,600)},800);
+}
+
+function root(){const R=reg();if(!R.length)return setupScreen();if(!selUser)return loginScreen(R);return passwordScreen(R.find(u=>u.id===selUser))}
+
+function loginScreen(R){$('app').innerHTML=`<div class="card wide"><div class="row" style="justify-content:center;flex-direction:column;text-align:center"><span class="lg" style="background:color-mix(in srgb,var(--br) 16%,var(--card));border:1px solid var(--br)">${LOCK}</span><h1 style="margin-top:10px">TeamVault</h1><p class="mu" style="color:var(--br);font-weight:500">Shared logins for small teams, with one-click offboarding.</p></div></div>
+<div class="tiles">${R.map(u=>`<div class="tile" data-u="${u.id}"><div class="ini">${esc(u.name[0].toUpperCase())}</div><h3>${esc(u.name)}</h3><span class="mu">${u.role==='admin'?'Owner':'Staff'}</span></div>`).join('')}</div>
+<p class="mu" style="text-align:center;margin-top:14px">Not on this list? Ask the owner to add you from the Team tab. <span id="da" style="cursor:pointer;text-decoration:underline">Start over</span></p><div id="rw"></div>`;
+document.querySelectorAll('[data-u]').forEach(t=>t.onclick=()=>{selUser=t.dataset.u;msg='';root()});
+$('da').onclick=()=>{$('rw').innerHTML=`<div class="card warn" style="text-align:left"><b>This deletes every login for everyone in this vault. It cannot be undone.</b><p class="mu">Only do this if the owner's password is truly lost. Type <b>DELETE</b> to confirm.</p><input id="rc" placeholder="Type DELETE" style="margin:8px 0"><div class="row"><button class="d" id="rf" disabled>Delete everything</button><button class="g" id="rn">Cancel</button></div></div>`;$('rc').oninput=e=>$('rf').disabled=e.target.value.trim()!=='DELETE';$('rf').onclick=()=>{ls.del('tv_users');ls.del('tv_vault');root()};$('rn').onclick=()=>{$('rw').innerHTML=''}}}
+
+function passwordScreen(u){$('app').innerHTML=`<div class="card lock"><div class="ini" style="margin:0 auto 12px;width:64px;height:64px;font-size:26px">${esc(u.name[0].toUpperCase())}</div><h1>${esc(u.name)}</h1><p class="mu">${u.role==='admin'?'Owner':'Staff'} · enter your password to unlock</p>${pf('mp','Your password')}<p style="color:var(--rd);font-size:13px">${msg}</p><div class="row" style="justify-content:center"><button id="go">Unlock</button><button class="g" id="bk">Back</button></div><p class="mu">Forgot it? Ask the owner to remove and re-add you.</p></div>`;
+bindEyes();
+$('bk').onclick=()=>{selUser=null;msg='';root()};
+$('mp').onkeydown=e=>{if(e.key==='Enter')$('go').click()};
+$('go').onclick=async()=>{try{const key=await deriveUserKey($('mp').value,u.salt);DEK=await unwrapDEK(u.wrap,key);S=await loadVault();me=u;msg='';main()}catch(e){msg='Wrong password. Try again.';DEK=null;passwordScreen(u)}}}
+
+function setupScreen(){$('app').innerHTML=`<div class="card lock"><div class="lg" style="margin:0 auto 14px">${LOCK}</div><h1>TeamVault</h1><p class="mu">Set up the vault as the owner. This password is never stored — only you (and anyone you approve) can unlock it.</p><input id="on" placeholder="Your name" value="Owner">${pf('op','Create a password')}<div class="bar"><i id="ms" class="s0" style="width:0"></i></div><span class="mu" id="mt">Use 8+ characters</span><p style="color:var(--rd);font-size:13px">${msg}</p><button id="go" style="margin-top:10px">Create vault</button></div>`;
+bindEyes();
+$('op').oninput=e=>{const n=sc(e.target.value);$('ms').className='s'+n;$('ms').style.width=n*25+'%';$('mt').textContent=['Too weak','Weak','Fair','Good','Strong'][n]};
+$('go').onclick=async()=>{const name=$('on').value.trim()||'Owner',pw=$('op').value;if(pw.length<8){msg='Use at least 8 characters.';return setupScreen()}
+const salt=b2s(crypto.getRandomValues(new Uint8Array(16)));const key=await deriveUserKey(pw,salt);
+DEK=await crypto.subtle.generateKey({name:'AES-GCM',length:256},true,['encrypt','decrypt']);
+const wrap=await wrapDEK(DEK,key);const owner={id:'u'+now(),name,role:'admin',salt,wrap};
+saveReg([owner]);S=seedData();await saveVault();me=owner;msg='';main()}}
+
+function main(){$('app').innerHTML=`<section class="hero"><div class="row"><div class="brand"><span class="lg">${LOCK}</span><div><h1>TeamVault</h1><span class="sub">Signed in as ${esc(me.name)} (${isA()?'Owner':'Staff'})</span></div></div><button class="g s" id="lk">Switch user</button></div><div class="stats"><div><b>${vis().length}</b>logins you can see</div><div><b>${reg().length}</b>people</div><div><b>${score()}</b>security score</div></div></section>
+<nav>${['vault','team','log','score','requests'].map(t=>{if(t==='team'&&!isA())return'';return`<button class="${tab===t?'on':''}" data-t="${t}">${{vault:'Vault',team:'Team',log:'Access log',score:'Security',requests:'Requests'}[t]}${t==='requests'&&isA()&&pendingCount()?`<span class="bdg">${pendingCount()}</span>`:''}</button>`}).join('')}</nav><div id="v"></div>`;
+$('lk').onclick=()=>{DEK=null;S=null;me=null;selUser=null;shown={};root()};
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{tab=b.dataset.t;main()});
+({vault:vaultV,team:teamV,log:logV,score:scoreV,requests:reqV})[tab]()}
+async function commit(){await saveVault();main()}
+function req(type,payload,note){S.requests.unshift({id:'r'+now(),type,by:me.id,byName:me.name,payload,note,t:now(),status:'pending'});lg(me.name,'Requested: '+note);commit()}
+
+function vaultV(){const cs=vis(),all=S.creds;$('v').innerHTML=`${isA()?`<div class="card"><h2>Add shared login</h2><div class="grid"><input id="n" placeholder="Name (e.g. Canva)"><input id="l" placeholder="Username">${pf('p','Password')}</div><div class="row" style="margin-top:10px"><div>${reg().filter(x=>x.role==='staff').map(x=>`<label style="margin-right:12px"><input type="checkbox" class="sh" value="${x.id}" style="width:auto"> ${esc(x.name)}</label>`).join('')||'<span class="mu">No staff yet</span>'}</div><div><button class="g" id="gn">Generate</button> <button id="ad">Save login</button></div></div></div>`:`<div class="card"><h2>Request a new login</h2><div class="row"><input id="rn" placeholder="Name of the tool (e.g. Canva)" style="flex:1"><button id="rq">Send request</button></div><p class="mu">The owner adds it and shares it with you once approved.</p></div>`}
+<div class="row" style="margin-bottom:12px"><input id="q" placeholder="Search logins" style="flex:1;min-width:160px"><select id="fl" style="width:auto"><option value="">All logins</option><option value="1">At risk only</option></select></div>
+${cs.length?cs.map(c=>{const i=issues(c);return`<div class="card vc" data-n="${esc(c.name.toLowerCase())}" data-k="${i.length?1:''}"><div class="row"><div class="cn"><span class="ini">${esc(c.name[0].toUpperCase())}</span><div><h3>${esc(c.name)}</h3><span class="mu">${esc(c.login)}</span> · <span class="pw">${shown[c.id]?esc(c.pass):'••••••••••'}</span></div></div><div><button class="g s" data-sh="${c.id}">${shown[c.id]?'Hide':'Reveal'}</button> <button class="g s" data-cp="${c.id}">Copy</button>${isA()?` <button class="g s" data-ac="${c.id}">Access</button> <button class="g s" data-rt="${c.id}">New password</button> <button class="d s" data-dl="${c.id}">Delete</button>`:` <button class="g s" data-rr="${c.id}">Request new password</button>`}</div></div><div class="bar"><i class="s${sc(c.pass)}" style="width:${sc(c.pass)*25}%"></i></div><div class="mu sw">Access ${c.shared.map(id=>'<span class="chip">'+esc(reg().find(u=>u.id===id)?.name||'?')+'</span>').join('')||'<span class="chip">Owner only</span>'} ${i.map(x=>`<span class="tag ${x==='rotate now'?'r':'w'}">${x}</span>`).join(' ')}</div>${isA()&&sel===c.id?`<div class="acc">${reg().filter(x=>x.role==='staff').map(x=>`<label><input type="checkbox" class="ak" data-c="${c.id}" value="${x.id}" ${c.shared.includes(x.id)?'checked':''} style="width:auto"> ${esc(x.name)}</label>`).join('')||'<span class="mu">No staff yet</span>'}</div>`:''}</div>`}).join(''):'<div class="card mu">Nothing to show yet.</div>'}
+${!isA()?(()=>{const hidden=all.filter(c=>!c.shared.includes(me.id));return hidden.length?`<div class="card"><h2>Other team logins</h2><p class="mu">Ask the owner if you need one of these.</p>${hidden.map(c=>`<div class="row" style="padding:6px 0"><span>${esc(c.name)}</span><button class="g s" data-ar="${c.id}">Request access</button></div>`).join('')}</div>`:''})():''}`;
+if(isA()){bindEyes();$('gn').onclick=()=>$('p').value=gen();$('ad').onclick=()=>{const n=$('n').value.trim(),p=$('p').value;if(!n||!p)return;S.creds.push({id:'c'+now(),name:n,login:$('l').value.trim(),pass:p,shared:[...document.querySelectorAll('.sh:checked')].map(x=>x.value),upd:now()});lg(me.name,'Added login "'+n+'"');commit()}
+document.querySelectorAll('[data-ac]').forEach(b=>b.onclick=()=>{sel=sel===b.dataset.ac?null:b.dataset.ac;main()});
+document.querySelectorAll('.ak').forEach(k=>k.onchange=()=>{const c=S.creds.find(x=>x.id===k.dataset.c),u=reg().find(x=>x.id===k.value);c.shared=k.checked?[...c.shared,k.value]:c.shared.filter(id=>id!==k.value);lg(me.name,(k.checked?'Granted ':'Revoked ')+u.name+' access to "'+c.name+'"');if(!k.checked)c.rotate=true;commit()});
+document.querySelectorAll('[data-rt]').forEach(b=>b.onclick=()=>{const c=S.creds.find(x=>x.id===b.dataset.rt);c.pass=gen();c.upd=now();c.rotate=false;lg(me.name,'Changed password of "'+c.name+'"');commit()});
+document.querySelectorAll('[data-dl]').forEach(b=>b.onclick=()=>{const c=S.creds.find(x=>x.id===b.dataset.dl);if(!b.dataset.c){b.dataset.c=1;b.textContent='Confirm delete';return}S.creds=S.creds.filter(x=>x!==c);lg(me.name,'Deleted "'+c.name+'"');commit()})}
+else{$('rq').onclick=()=>{const n=$('rn').value.trim();if(!n)return;req('add',{name:n},'add a new login for "'+n+'"');$('rn').value=''};
+document.querySelectorAll('[data-ar]').forEach(b=>b.onclick=()=>{const c=all.find(x=>x.id===b.dataset.ar);req('access',{cid:c.id},'access to "'+c.name+'"')});
+document.querySelectorAll('[data-rr]').forEach(b=>b.onclick=()=>{const c=all.find(x=>x.id===b.dataset.rr);req('rotate',{cid:c.id},'a new password for "'+c.name+'"')})}
+document.querySelectorAll('[data-sh]').forEach(b=>b.onclick=()=>{const c=S.creds.find(x=>x.id===b.dataset.sh);shown[c.id]=!shown[c.id];if(shown[c.id])lg(me.name,'Viewed "'+c.name+'"');commit()});
+document.querySelectorAll('[data-cp]').forEach(b=>b.onclick=async()=>{const c=S.creds.find(x=>x.id===b.dataset.cp);try{await navigator.clipboard.writeText(c.pass)}catch(e){}lg(me.name,'Copied "'+c.name+'"');await saveVault();b.textContent='Copied'});
+const f=()=>{const t=$('q').value.toLowerCase(),v=$('fl').value;document.querySelectorAll('.vc').forEach(e=>e.style.display=(e.dataset.n.includes(t)&&(!v||e.dataset.k))?'':'none')};$('q').oninput=f;$('fl').onchange=f}
+
+function teamV(){const R=reg();$('v').innerHTML=`${offb?`<div class="card warn"><h2>${esc(offb.name)} removed</h2><p>They could see ${offb.list.length} login(s). Change these now:</p><ol>${offb.list.map(x=>`<li>${esc(x)}</li>`).join('')||'<li>Nothing to rotate.</li>'}</ol><p><b>Message to send the team</b></p><p class="pw" style="display:block;white-space:pre-wrap">${esc(offb.msg)}</p><button class="s" id="dr">Download report</button> <button class="g s" id="ok">Dismiss</button></div>`:''}
+<div class="card row"><div><h2>Team plan</h2><span class="mu">₹99 per person per month</span></div><div style="text-align:right"><b style="font:700 28px 'Bricolage Grotesque',sans-serif">₹${R.length*99}</b><br><span class="mu">per month for ${R.length} people</span></div></div>
+<div class="card"><h2>Add team member</h2><p class="mu">Set a temporary password and share it with them yourself. They can log in with it right away.</p><div class="row"><input id="tn" placeholder="Name" style="flex:1;min-width:140px">${pf('tp','Temporary password')}<button class="g s" id="tg">Generate</button><button id="ta">Add</button></div><p style="color:var(--rd);font-size:13px" id="tm"></p></div>
+${R.map(u=>{const n=S.creds.filter(c=>c.shared.includes(u.id)).length;return`<div class="card row"><div class="cn"><span class="ini">${esc(u.name[0].toUpperCase())}</span><div><h3>${esc(u.name)}</h3><span class="mu">${u.role==='admin'?'Owner, sees everything':n+' shared login(s)'}</span></div></div>${u.role==='staff'?`<button class="d s" data-rm="${u.id}">Remove employee</button>`:'<span class="tag o">admin</span>'}</div>`}).join('')}`;
+bindEyes();
+if(offb){$('ok').onclick=()=>{offb=null;main()};$('dr').onclick=()=>dlf('offboarding-report.txt',offb.msg)}
+$('tg').onclick=()=>$('tp').value=gen(10);
+$('ta').onclick=async()=>{const n=$('tn').value.trim(),p=$('tp').value;$('tm').textContent='';if(!n){$('tm').textContent='Enter a name.';return}if(p.length<8){$('tm').textContent='Password needs 8+ characters. Try Generate.';return}if(reg().some(u=>u.name.toLowerCase()===n.toLowerCase())){$('tm').textContent='That name is already in the team.';return}const salt=b2s(crypto.getRandomValues(new Uint8Array(16)));const key=await deriveUserKey(p,salt);const wrap=await wrapDEK(DEK,key);const u={id:'u'+now(),name:n,role:'staff',salt,wrap};saveReg([...reg(),u]);lg(me.name,'Added team member '+n);commit()};
+document.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{const u=R.find(x=>x.id===b.dataset.rm);if(!b.dataset.c){b.dataset.c=1;b.textContent='Confirm removal';return}
+const l=S.creds.filter(c=>c.shared.includes(u.id));l.forEach(c=>{c.rotate=true;c.shared=c.shared.filter(id=>id!==u.id)});
+const msgTxt='Hi team, '+u.name+' no longer has access to our shared accounts. I am changing the passwords for '+(l.map(c=>c.name).join(', ')||'nothing')+'. Please do not share logins outside TeamVault.';
+offb={name:u.name,list:l.map(c=>c.name),msg:msgTxt};saveReg(R.filter(x=>x!==u));lg(me.name,'Removed '+u.name+'; flagged '+l.length+' login(s) for rotation');commit()})}
+
+function logV(){const L=isA()?S.log:S.log.filter(e=>e.who===me.name);$('v').innerHTML=`<div class="card log"><h2>Access log</h2>${L.map(e=>`<div><b>${esc(e.who)}</b> ${esc(e.a)} <span class="mu">· ${new Date(e.t).toLocaleString()}</span></div>`).join('')||'<span class="mu">No activity yet.</span>'}</div>`}
+
+function scoreV(){const s=score(),col=s>=80?'ok':s>=50?'wn':'rd',cs=isA()?S.creds:vis();
+$('v').innerHTML=`<div class="card row"><div><h2>Vault security score</h2><span class="mu">Weak, reused, old (${S.rot||90}+ days) and flagged passwords lower it.</span></div><div class="gauge" style="--p:${s};--c:var(--${col})"><b>${s}</b></div></div>
+<div class="card"><h2>Smart summary</h2><p>${summary(cs)}</p></div>
+${cs.map(c=>{const i=issues(c);return i.length?`<div class="card"><b>${esc(c.name)}</b>: ${explain(c,i)}${isA()?` <button class="g s" data-fx="${c.id}">Fix now</button>`:''}</div>`:''}).join('')||'<div class="card">No problems found.</div>'}
+${isA()?`<div class="card"><h2>Settings and backup</h2><div class="row"><label class="mu">Rotate passwords every <select id="rt" style="width:auto">${[30,60,90].map(d=>`<option ${d===(S.rot||90)?'selected':''}>${d}</option>`).join('')}</select> days</label><div><button class="g s" id="ex">Export encrypted backup</button> <button class="g s" id="im">Import backup</button><input type="file" id="fi" hidden></div></div></div>`:''}`;
+document.querySelectorAll('[data-fx]').forEach(b=>b.onclick=()=>{const c=S.creds.find(x=>x.id===b.dataset.fx);c.pass=gen();c.upd=now();c.rotate=false;lg(me.name,'Fixed "'+c.name+'" with a new password');commit()});
+if(!isA())return;
+$('rt').onchange=e=>{S.rot=+e.target.value;commit()};
+$('ex').onclick=()=>dlf('teamvault-backup.txt',ls.get('tv_users')+'\\n---\\n'+ls.get('tv_vault'));
+$('im').onclick=()=>$('fi').click();
+$('fi').onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{const[u,v]=t.split('\\n---\\n');if(!u||!v)return;ls.set('tv_users',u.trim());ls.set('tv_vault',v.trim());DEK=null;S=null;me=null;selUser=null;root()})}}
+
+function reqV(){const R=isA()?S.requests:S.requests.filter(r=>r.by===me.id);
+$('v').innerHTML=`<div class="card"><h2>${isA()?'Requests to approve':'My requests'}</h2>${R.length?R.map(r=>`<div class="row" style="padding:8px 0;border-bottom:1px solid var(--bd)"><div><b>${esc(r.byName)}</b> asked to ${esc(r.note)} <span class="mu">· ${new Date(r.t).toLocaleString()}</span></div>${r.status==='pending'?(isA()?`<div><button class="s" data-ap="${r.id}">Approve</button> <button class="d s" data-dn="${r.id}">Deny</button></div>`:'<span class="tag w">pending</span>'):`<span class="tag ${r.status==='approved'?'o':'r'}">${r.status}</span>`}</div>`).join(''):'<p class="mu">Nothing here yet.</p>'}</div>`;
+if(!isA())return;
+document.querySelectorAll('[data-ap]').forEach(b=>b.onclick=()=>{const r=S.requests.find(x=>x.id===b.dataset.ap);r.status='approved';
+if(r.type==='add'){S.creds.push({id:'c'+now(),name:r.payload.name,login:'',pass:gen(),shared:[r.by],upd:now()});lg(me.name,'Approved and added "'+r.payload.name+'" for '+r.byName)}
+if(r.type==='access'){const c=S.creds.find(x=>x.id===r.payload.cid);if(c&&!c.shared.includes(r.by)){c.shared.push(r.by);lg(me.name,'Approved access to "'+c.name+'" for '+r.byName)}}
+if(r.type==='rotate'){const c=S.creds.find(x=>x.id===r.payload.cid);if(c){c.pass=gen();c.upd=now();c.rotate=false;lg(me.name,'Approved new password for "'+c.name+'"')}}
+commit()});
+document.querySelectorAll('[data-dn]').forEach(b=>b.onclick=()=>{const r=S.requests.find(x=>x.id===b.dataset.dn);r.status='denied';lg(me.name,'Denied request from '+r.byName);commit()})}
+
+showIntro(root);
+</script></body></html>
